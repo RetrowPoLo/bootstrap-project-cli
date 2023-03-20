@@ -6,15 +6,11 @@ import { getCustomTemplatePath, isCustomTemplate } from './custom-template-helpe
 import type { Template } from '../types';
 
 export function getTemplateDirectory(template: Template): string {
-    const currentFileUrl = import.meta.url;
+	const currentFileUrl = import.meta.url;
 
-    if (isCustomTemplate(template)) {
-        return getCustomTemplatePath(template);
-    }
+	if (isCustomTemplate(template)) {
+		return getCustomTemplatePath(template);
+	}
 
-    return path.resolve(
-        decodeURI(fileURLToPath(currentFileUrl)),
-        '../../templates',
-        template
-    );
+	return path.resolve(decodeURI(fileURLToPath(currentFileUrl)), '../../templates', template);
 }

@@ -2,7 +2,7 @@
 
 https://javascript.plainenglish.io/how-to-create-your-own-cli-with-node-js-7646a976f8fa
 
-## COMMITITZEN EMOJI 
+## COMMITITZEN EMOJI
 
 https://strdr4605.com/commitlint-custom-commit-message-with-emojis
 

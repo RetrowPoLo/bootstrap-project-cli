@@ -5,9 +5,9 @@ import { promptForMissingOptions } from './utils/prompt-for-missing-options';
 import type { Args } from './types';
 
 export async function cli(args: Args) {
-    const rawOptions = await parseArgumentsIntoOptions(args);
+	const rawOptions = await parseArgumentsIntoOptions(args);
 
-    const options = await promptForMissingOptions(rawOptions);
+	const options = await promptForMissingOptions(rawOptions);
 
-    await createProject(options);
+	await createProject(options);
 }

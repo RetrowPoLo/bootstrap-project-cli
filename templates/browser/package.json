@@ -1,11 +1,11 @@
 {
-    "name": "create-project-browser-template",
-    "description": "",
-    "version": "1.0.0",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC"
+	"name": "create-project-browser-template",
+	"description": "",
+	"version": "1.0.0",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
 }

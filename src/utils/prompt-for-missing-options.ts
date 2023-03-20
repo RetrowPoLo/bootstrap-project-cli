@@ -4,113 +4,115 @@ import type { Options, RawOptions } from '../types';
 
 // default values for unspecified args
 const defaultOptions: Omit<Options, 'project'> = {
-    git: false,
-    husky: false,
-    eslint: false,
-    install: true,
-    template: 'javascript'
+	git: false,
+	husky: false,
+	eslint: false,
+	install: true,
+	template: 'javascript',
 };
 
 // --yes flag is passed
 const skipOptions: Omit<Options, 'project' | 'template'> = {
-    git: true,
-    husky: true,
-    eslint: true,
-    install: true
+	git: true,
+	husky: true,
+	eslint: true,
+	install: true,
 };
 
 export async function promptForMissingOptions(options: RawOptions): Promise<Options> {
-    if (options.skipPrompts) {
-        options = { ...options, ...skipOptions };
-    }
+	if (options.skipPrompts) {
+		options = { ...options, ...skipOptions };
+	}
 
-    const questions = [];
+	const questions = [];
 
-    if (!options.project) {
-        questions.push({
-            type: 'input',
-            name: 'project',
-            message: 'Please type project\'s name (cannot be empty)',
-            validate: (value: string) => value.length > 0
-        });
-    }
+	if (!options.project) {
+		questions.push({
+			type: 'input',
+			name: 'project',
+			/* eslint-disable */
+			message: "Please type project's name (cannot be empty)",
+			/* eslint-enable */
+			validate: (value: string) => value.length > 0,
+		});
+	}
 
-    if (!options.template) {
-        questions.push({
-            type: 'list',
-            name: 'template',
-            message: 'Please choose which project template to use',
-            choices: [
-                { name: 'Browser', value: 'browser' },
-                { name: 'JavaScript', value: 'javascript' },
-                { name: 'TypeScript', value: 'typescript' }
-            ],
-            default: defaultOptions.template
-        });
-    }
+	if (!options.template) {
+		questions.push({
+			type: 'list',
+			name: 'template',
+			message: 'Please choose which project template to use',
+			choices: [
+				{ name: 'Browser', value: 'browser' },
+				{ name: 'JavaScript', value: 'javascript' },
+				{ name: 'TypeScript', value: 'typescript' },
+			],
+			default: defaultOptions.template,
+		});
+	}
 
-    if (!options.git) {
-        questions.push({
-            type: 'confirm',
-            name: 'git',
-            message: 'Initialize a git repository?',
-            default: defaultOptions.git
-        });
-    }
+	if (!options.git) {
+		questions.push({
+			type: 'confirm',
+			name: 'git',
+			message: 'Initialize a git repository?',
+			default: defaultOptions.git,
+		});
+	}
 
-    if (!options.husky) {
-        questions.push({
-            type: 'confirm',
-            name: 'husky',
-            message: 'Initialize Husky?',
-            when(answers: inquirer.Answers) {
-                return options.git || answers.git;
-            },
-            default: defaultOptions.husky
-        });
-    }
+	if (!options.husky) {
+		questions.push({
+			type: 'confirm',
+			name: 'husky',
+			message: 'Initialize Husky?',
+			when(answers: inquirer.Answers) {
+				return options.git || answers.git;
+			},
+			default: defaultOptions.husky,
+		});
+	}
 
-    if (!options.eslint) {
-        questions.push({
-            type: 'confirm',
-            name: 'eslint',
-            message: 'Initialize Eslint?',
-            default: defaultOptions.eslint
-        });
-    }
+	if (!options.eslint) {
+		questions.push({
+			type: 'confirm',
+			name: 'eslint',
+			message: 'Initialize Eslint?',
+			default: defaultOptions.eslint,
+		});
+	}
 
-    if (!options.install) {
-        questions.push({
-            type: 'confirm',
-            name: 'install',
-            message: 'Install packages?',
-            when(answers: inquirer.Answers) {
-                if (answers.husky) {
-                    answers.install = true;
+	if (!options.install) {
+		questions.push({
+			type: 'confirm',
+			name: 'install',
+			message: 'Install packages?',
+			when(answers: inquirer.Answers) {
+				if (answers.husky) {
+					answers.install = true;
 
-                    return false;
-                }
+					return false;
+				}
 
-                if (answers.eslint) {
-                    answers.install = true;
+				if (answers.eslint) {
+					answers.install = true;
 
-                    return false;
-                }
+					return false;
+				}
 
-                return true;
-            },
-            default: defaultOptions.install
-        });
-    }
+				return true;
+			},
+			default: defaultOptions.install,
+		});
+	}
 
-    const answers = await inquirer.prompt(questions);
+	const answers = await inquirer.prompt(questions);
 
-    return {
-        git: options.git || answers.git,
-        husky: options.husky || answers.husky,
-        eslint: options.eslint || answers.eslint,
-        install: options.install || answers.install,
-        project: options.project || answers.project,
-        template: options.template || answers.template
-    };
+	return {
+		git: options.git || answers.git,
+		husky: options.husky || answers.husky,
+		eslint: options.eslint || answers.eslint,
+		install: options.install || answers.install,
+		project: options.project || answers.project,
+		template: options.template || answers.template,
+	};
 }
