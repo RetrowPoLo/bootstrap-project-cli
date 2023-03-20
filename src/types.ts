@@ -8,7 +8,7 @@ export type Template = SupportedTemplate | CustomTemplate;
 export type RawOptions = {
 	git: boolean;
 	husky: boolean;
-	eslint: boolean;
+	prettier: boolean;
 	install: boolean;
 	project: string;
 	skipPrompts: boolean;

@@ -60,25 +60,13 @@ async function initHusky(targetDir) {
 	return true;
 }
 
-async function initEslint(targetDir) {
-	const resultInit = await execa('npm', ['eslint --init -y'], {
+async function initPrettier(targetDir) {
+	const result = await execa('echo', [' {} > .prettierrc.json'], {
 		cwd: targetDir,
 	});
-	if (resultInit.failed) {
-		return Promise.reject(new Error('Failed to initialize eslint'));
+	if (result.failed) {
+		return Promise.reject(new Error('Failed to initialize prettier'));
 	}
-	// const resultCheckCommand = await execa('npm', ['pkg set scripts.lint:check="eslint ./"'], {
-	//     cwd: targetDir
-	// });
-	// if (resultCheckCommand.failed) {
-	//     return Promise.reject(new Error('Failed to add eslint check command'));
-	// }
-	// const resultFixCommand = await execa('npm', ['pkg set scripts.lint:fix="eslint ./ --fix"'], {
-	//     cwd: targetDir
-	// });
-	// if (resultFixCommand.failed) {
-	//     return Promise.reject(new Error('Failed to add eslint fix command'));
-	// }
 	return true;
 }
 
@@ -111,9 +99,9 @@ async function createProject(options) {
 			enabled: () => options.husky,
 		},
 		{
-			title: 'Initialize Eslint',
-			task: () => initEslint(targetDirectory),
-			enabled: () => options.eslint,
+			title: 'Initialize Prettier',
+			task: () => initPrettier(targetDirectory),
+			enabled: () => options.prettier,
 		},
 		{
 			title: 'Install dependencies',
@@ -187,13 +175,13 @@ async function parseArgumentsIntoOptions(rawArgs) {
 		{
 			'--git': Boolean,
 			'--husky': Boolean,
-			'--eslint': Boolean,
+			'--prettier': Boolean,
 			'--install': Boolean,
 			'--template': String,
 			'--yes': Boolean,
 			'-g': '--git',
 			'-h': '--husky',
-			'-e': '--eslint',
+			'-p': '--prettier',
 			'-i': '--install',
 			'-t': '--template',
 			'-y': '--yes',
@@ -207,9 +195,9 @@ async function parseArgumentsIntoOptions(rawArgs) {
 	const project = args._[0];
 	return {
 		git: args['--husky'] || args['--git'] || false,
-		install: args['--husky'] || args['--eslint'] || args['--install'] || false,
+		install: args['--husky'] || args['--prettier'] || args['--install'] || false,
 		husky: args['--husky'] || false,
-		eslint: args['--eslint'] || false,
+		prettier: args['--prettier'] || false,
 		project,
 		skipPrompts: args['--yes'] || false,
 		template,
@@ -220,7 +208,7 @@ async function parseArgumentsIntoOptions(rawArgs) {
 const defaultOptions = {
 	git: false,
 	husky: false,
-	eslint: false,
+	prettier: false,
 	install: true,
 	template: 'javascript',
 };
@@ -228,7 +216,7 @@ const defaultOptions = {
 const skipOptions = {
 	git: true,
 	husky: true,
-	eslint: true,
+	prettier: true,
 	install: true,
 };
 async function promptForMissingOptions(options) {
@@ -263,7 +251,7 @@ async function promptForMissingOptions(options) {
 		questions.push({
 			type: 'confirm',
 			name: 'git',
-			message: 'Initialize a git repository?',
+			message: 'Initialize a git repository ?',
 			default: defaultOptions.git,
 		});
 	}
@@ -271,32 +259,32 @@ async function promptForMissingOptions(options) {
 		questions.push({
 			type: 'confirm',
 			name: 'husky',
-			message: 'Initialize Husky?',
+			message: 'Initialize Husky ?',
 			when(answers) {
 				return options.git || answers.git;
 			},
 			default: defaultOptions.husky,
 		});
 	}
-	if (!options.eslint) {
+	if (!options.prettier) {
 		questions.push({
 			type: 'confirm',
-			name: 'eslint',
-			message: 'Initialize Eslint?',
-			default: defaultOptions.eslint,
+			name: 'prettier',
+			message: 'Initialize Prettier ?',
+			default: defaultOptions.prettier,
 		});
 	}
 	if (!options.install) {
 		questions.push({
 			type: 'confirm',
 			name: 'install',
-			message: 'Install packages?',
+			message: 'Install packages ?',
 			when(answers) {
 				if (answers.husky) {
 					answers.install = true;
 					return false;
 				}
-				if (answers.eslint) {
+				if (answers.prettier) {
 					answers.install = true;
 					return false;
 				}
@@ -309,7 +297,7 @@ async function promptForMissingOptions(options) {
 	return {
 		git: options.git || answers.git,
 		husky: options.husky || answers.husky,
-		eslint: options.eslint || answers.eslint,
+		prettier: options.prettier || answers.prettier,
 		install: options.install || answers.install,
 		project: options.project || answers.project,
 		template: options.template || answers.template,

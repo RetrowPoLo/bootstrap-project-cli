@@ -9,13 +9,13 @@ export async function parseArgumentsIntoOptions(rawArgs: Args): Promise<RawOptio
 		{
 			'--git': Boolean,
 			'--husky': Boolean,
-			'--eslint': Boolean,
+			'--prettier': Boolean,
 			'--install': Boolean,
 			'--template': String,
 			'--yes': Boolean,
 			'-g': '--git',
 			'-h': '--husky',
-			'-e': '--eslint',
+			'-p': '--prettier',
 			'-i': '--install',
 			'-t': '--template',
 			'-y': '--yes',
@@ -32,9 +32,9 @@ export async function parseArgumentsIntoOptions(rawArgs: Args): Promise<RawOptio
 
 	return {
 		git: args['--husky'] || args['--git'] || false,
-		install: args['--husky'] || args['--eslint'] || args['--install'] || false,
+		install: args['--husky'] || args['--prettier'] || args['--install'] || false,
 		husky: args['--husky'] || false,
-		eslint: args['--eslint'] || false,
+		prettier: args['--prettier'] || false,
 		project,
 		skipPrompts: args['--yes'] || false,
 		template,

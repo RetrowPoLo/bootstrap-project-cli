@@ -6,7 +6,7 @@ import type { Options, RawOptions } from '../types';
 const defaultOptions: Omit<Options, 'project'> = {
 	git: false,
 	husky: false,
-	eslint: false,
+	prettier: false,
 	install: true,
 	template: 'javascript',
 };
@@ -15,7 +15,7 @@ const defaultOptions: Omit<Options, 'project'> = {
 const skipOptions: Omit<Options, 'project' | 'template'> = {
 	git: true,
 	husky: true,
-	eslint: true,
+	prettier: true,
 	install: true,
 };
 
@@ -55,7 +55,7 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 		questions.push({
 			type: 'confirm',
 			name: 'git',
-			message: 'Initialize a git repository?',
+			message: 'Initialize a git repository ?',
 			default: defaultOptions.git,
 		});
 	}
@@ -64,7 +64,7 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 		questions.push({
 			type: 'confirm',
 			name: 'husky',
-			message: 'Initialize Husky?',
+			message: 'Initialize Husky ?',
 			when(answers: inquirer.Answers) {
 				return options.git || answers.git;
 			},
@@ -72,12 +72,12 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 		});
 	}
 
-	if (!options.eslint) {
+	if (!options.prettier) {
 		questions.push({
 			type: 'confirm',
-			name: 'eslint',
-			message: 'Initialize Eslint?',
-			default: defaultOptions.eslint,
+			name: 'prettier',
+			message: 'Initialize Prettier ?',
+			default: defaultOptions.prettier,
 		});
 	}
 
@@ -85,7 +85,7 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 		questions.push({
 			type: 'confirm',
 			name: 'install',
-			message: 'Install packages?',
+			message: 'Install packages ?',
 			when(answers: inquirer.Answers) {
 				if (answers.husky) {
 					answers.install = true;
@@ -93,7 +93,7 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 					return false;
 				}
 
-				if (answers.eslint) {
+				if (answers.prettier) {
 					answers.install = true;
 
 					return false;
@@ -110,7 +110,7 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 	return {
 		git: options.git || answers.git,
 		husky: options.husky || answers.husky,
-		eslint: options.eslint || answers.eslint,
+		prettier: options.prettier || answers.prettier,
 		install: options.install || answers.install,
 		project: options.project || answers.project,
 		template: options.template || answers.template,

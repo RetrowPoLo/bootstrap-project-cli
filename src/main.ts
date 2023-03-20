@@ -7,7 +7,7 @@ import { copyTemplateFiles } from './utils/copy-template-files';
 import { createProjectDirectory } from './utils/create-project-directory';
 import { initGitRepo } from './utils/init-git-repo';
 import { initHusky } from './utils/init-husky';
-import { initEslint } from './utils/init-eslint';
+import { initPrettier } from './utils/init-prettier';
 import { installPackages } from './utils/install-packages';
 
 import type { Options } from './types';
@@ -36,9 +36,9 @@ export async function createProject(options: Options) {
 			enabled: () => options.husky,
 		},
 		{
-			title: 'Initialize Eslint',
-			task: () => initEslint(targetDirectory),
-			enabled: () => options.eslint,
+			title: 'Initialize Prettier',
+			task: () => initPrettier(targetDirectory),
+			enabled: () => options.prettier,
 		},
 		{
 			title: 'Install dependencies',
