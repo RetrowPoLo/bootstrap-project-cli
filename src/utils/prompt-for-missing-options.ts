@@ -7,6 +7,7 @@ const defaultOptions: Omit<Options, 'project'> = {
 	git: false,
 	husky: false,
 	prettier: false,
+	eslint: false,
 	install: true,
 	template: 'javascript',
 };
@@ -16,6 +17,7 @@ const skipOptions: Omit<Options, 'project' | 'template'> = {
 	git: true,
 	husky: true,
 	prettier: true,
+	eslint: true,
 	install: true,
 };
 
@@ -81,6 +83,15 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 		});
 	}
 
+	if (!options.eslint) {
+		questions.push({
+			type: 'confirm',
+			name: 'eslint',
+			message: 'Initialize Eslint ?',
+			default: defaultOptions.prettier,
+		});
+	}
+
 	if (!options.install) {
 		questions.push({
 			type: 'confirm',
@@ -99,6 +110,12 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 					return false;
 				}
 
+				if (answers.eslint) {
+					answers.install = true;
+
+					return false;
+				}
+
 				return true;
 			},
 			default: defaultOptions.install,
@@ -111,6 +128,7 @@ export async function promptForMissingOptions(options: RawOptions): Promise<Opti
 		git: options.git || answers.git,
 		husky: options.husky || answers.husky,
 		prettier: options.prettier || answers.prettier,
+		eslint: options.eslint || answers.eslint,
 		install: options.install || answers.install,
 		project: options.project || answers.project,
 		template: options.template || answers.template,
