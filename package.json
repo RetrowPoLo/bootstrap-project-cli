@@ -1,12 +1,12 @@
 {
-	"name": "create-project",
+	"name": "bootstrap-project",
 	"version": "1.0.0",
 	"description": "",
 	"main": "dist/cli.js",
 	"type": "module",
 	"bin": {
-		"@PoLo/create-project": "bin/create-project.js",
-		"create-project": "bin/create-project.js"
+		"@PoLo/bootstrap-project": "bin/bootstrap-project.js",
+		"bootstrap-project": "bin/bootstrap-project.js"
 	},
 	"scripts": {
 		"build": "rollup -c rollup.config.js",

@@ -1,19 +1,67 @@
-# create-project
+# Bootstrap Project CLI
 
-https://javascript.plainenglish.io/how-to-create-your-own-cli-with-node-js-7646a976f8fa
+The Bootstrap Project CLI is a command-line interface tool to help you quickly bootstrap new projects with customizable templates.
 
-## COMMITITZEN EMOJI
+## Installation
 
-https://strdr4605.com/commitlint-custom-commit-message-with-emojis
+You can install the Bootstrap Project CLI globally using npm:
 
-https://github.com/wagoid/commitlint-github-action
+```bash
+npm install -g bootstrap-project-cli
+```
 
-https://www.freecodecamp.org/news/how-to-use-commitlint-to-write-good-commit-messages/
+## Usage
 
-https://www.google.com/search?q=commitlint+with+commitizen+and+emoji&rlz=1C1GCEJ_enFR1043FR1043&oq=commitlint+with+commitizen+and+emoji&aqs=chrome..69i57j33i160.13522j1j7&sourceid=chrome&ie=UTF-8
+To create a new project, run the following command:
 
-https://dev.to/sohandutta/make-everyone-in-your-project-write-beautiful-commit-messages-using-commitlint-and-commitizen-1amn
+```bash
+bootstrap-project <project-name>
+```
 
-https://github.com/leoforfree/cz-customizable
+The project-name argument is required and should be the name of your project.
 
-https://www.npmjs.com/package/commitizen-emoji?activeTab=readme
+### Possible options
+
+You can also pass additional options to customize your project using flags:
+
+- --git: Initialize a Git repository
+- --husky: Initialize Husky Git hooks
+- --prettier: Initialize Prettier code formatter
+- --eslint: Initialize Eslint linter
+- --template <template-name>: Choose a project template. The default is JavaScript.
+- --yes: Skip prompts and use default options
+
+## Example
+
+For example, to create a new TypeScript project with Git and Husky, you can run:
+
+```bash
+bootstrap-project my-typescript-project --git --husky --template typescript
+```
+
+## Template
+
+The Bootstrap Project CLI provides several project templates to choose from:
+
+- browser: A template for browser-based projects using vanilla JavaScript and HTML
+- javascript: A template for Node.js projects using JavaScript
+- typescript: A template for Node.js projects using TypeScript
+
+To choose a template, pass the --template flag followed by the name of the template you want to use. The default template is javascript.
+
+## Contributing
+
+Contributions are welcome! If you want to contribute, please follow these steps:
+
+  1. Fork the repository
+  2. Clone the repository to your local machine
+  3. Create a new branch for your changes
+  4. Make your changes and commit them
+  5. Push your changes to your fork
+  6. Submit a pull request
+
+Please make sure your code follows the existing coding style and passes the tests before submitting a pull request.
+
+## License
+
+This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
