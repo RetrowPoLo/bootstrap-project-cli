@@ -62,6 +62,7 @@ async function initHusky(targetDir) {
 }
 
 const PRETTIER_VERSION = '^2.8.6';
+const ESLINT_VERSION = '^8.36.0';
 
 async function initPrettier(targetDir) {
 	// Config for the .prettierrc.json file
@@ -104,6 +105,32 @@ async function initPrettier(targetDir) {
 	}
 }
 
+async function initEslint(targetDir) {
+	try {
+		// Read the package.json file
+		const packageJsonPath = `${targetDir}/package.json`;
+		const packageJsonString = await readFile(packageJsonPath, 'utf-8');
+		const packageJson = JSON.parse(packageJsonString);
+		// Add eslint as a dev dependency
+		packageJson.devDependencies = {
+			...packageJson.devDependencies,
+			eslint: ESLINT_VERSION,
+		};
+		// Add a command to the package.json to run eslint
+		packageJson.scripts = {
+			...packageJson.scripts,
+			'lint:check': 'eslint ./',
+			'lint:fix': 'eslint ./ --fix',
+		};
+		// Write the updated package.json file
+		await writeFile(packageJsonPath, JSON.stringify(packageJson));
+		return true;
+	} catch (err) {
+		console.error(err);
+		return Promise.reject(new Error('Failed to initialize eslint'));
+	}
+}
+
 function installPackages(targetDir) {
 	return projectInstall({
 		cwd: targetDir,
@@ -138,6 +165,11 @@ async function createProject(options) {
 			enabled: () => options.prettier,
 		},
 		{
+			title: 'Initialize Eslint',
+			task: () => initEslint(targetDirectory),
+			enabled: () => options.eslint,
+		},
+		{
 			title: 'Install dependencies',
 			task: () => installPackages(targetDirectory),
 			skip: () => {
@@ -155,7 +187,7 @@ async function createProject(options) {
 	}
 }
 
-const templates = ['javascript', 'typescript'];
+const templates = ['javascript', 'typescript', 'browser'];
 
 function checkTemplateValidity(template) {
 	return (
@@ -210,12 +242,14 @@ async function parseArgumentsIntoOptions(rawArgs) {
 			'--git': Boolean,
 			'--husky': Boolean,
 			'--prettier': Boolean,
+			'--eslint': Boolean,
 			'--install': Boolean,
 			'--template': String,
 			'--yes': Boolean,
 			'-g': '--git',
 			'-h': '--husky',
 			'-p': '--prettier',
+			'-e': '--eslint',
 			'-i': '--install',
 			'-t': '--template',
 			'-y': '--yes',
@@ -229,9 +263,11 @@ async function parseArgumentsIntoOptions(rawArgs) {
 	const project = args._[0];
 	return {
 		git: args['--husky'] || args['--git'] || false,
-		install: args['--husky'] || args['--prettier'] || args['--install'] || false,
+		install:
+			args['--husky'] || args['--prettier'] || args['--eslint'] || args['--install'] || false,
 		husky: args['--husky'] || false,
 		prettier: args['--prettier'] || false,
+		eslint: args['--eslint'] || false,
 		project,
 		skipPrompts: args['--yes'] || false,
 		template,
@@ -243,6 +279,7 @@ const defaultOptions = {
 	git: false,
 	husky: false,
 	prettier: false,
+	eslint: false,
 	install: true,
 	template: 'javascript',
 };
@@ -251,6 +288,7 @@ const skipOptions = {
 	git: true,
 	husky: true,
 	prettier: true,
+	eslint: true,
 	install: true,
 };
 async function promptForMissingOptions(options) {
@@ -308,6 +346,14 @@ async function promptForMissingOptions(options) {
 			default: defaultOptions.prettier,
 		});
 	}
+	if (!options.eslint) {
+		questions.push({
+			type: 'confirm',
+			name: 'eslint',
+			message: 'Initialize Eslint ?',
+			default: defaultOptions.prettier,
+		});
+	}
 	if (!options.install) {
 		questions.push({
 			type: 'confirm',
@@ -322,6 +368,10 @@ async function promptForMissingOptions(options) {
 					answers.install = true;
 					return false;
 				}
+				if (answers.eslint) {
+					answers.install = true;
+					return false;
+				}
 				return true;
 			},
 			default: defaultOptions.install,
@@ -332,6 +382,7 @@ async function promptForMissingOptions(options) {
 		git: options.git || answers.git,
 		husky: options.husky || answers.husky,
 		prettier: options.prettier || answers.prettier,
+		eslint: options.eslint || answers.eslint,
 		install: options.install || answers.install,
 		project: options.project || answers.project,
 		template: options.template || answers.template,
