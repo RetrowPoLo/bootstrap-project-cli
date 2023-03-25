@@ -18,7 +18,13 @@ To create a new project, run the following command:
 bootstrap-project <project-name>
 ```
 
-The project-name argument is required and should be the name of your project.
+Or just run:
+
+```bash
+bootstrap-project
+```
+
+To have a help for each steps (with a real wizard 🧙‍♂️), this will let you choose your template, your dependencies.
 
 ### Possible options
 
@@ -27,7 +33,7 @@ You can also pass additional options to customize your project using flags:
 - --git: Initialize a Git repository
 - --husky: Initialize Husky Git hooks
 - --prettier: Initialize Prettier code formatter
-- --eslint: Initialize Eslint linter
+- --eslint: Initialize Eslint Javascript linter
 - --template <template-name>: Choose a project template. The default is JavaScript.
 - --yes: Skip prompts and use default options
 
@@ -39,6 +45,14 @@ For example, to create a new TypeScript project with Git and Husky, you can run:
 bootstrap-project my-typescript-project --git --husky --template typescript
 ```
 
+Or just run:
+
+```bash
+bootstrap-project
+```
+
+And you can choose typescript, git and husky in the helping wizard 🧙‍♂️.
+
 ## Template
 
 The Bootstrap Project CLI provides several project templates to choose from:
@@ -47,11 +61,11 @@ The Bootstrap Project CLI provides several project templates to choose from:
 - javascript: A template for Node.js projects using JavaScript
 - typescript: A template for Node.js projects using TypeScript
 
-To choose a template, pass the --template flag followed by the name of the template you want to use. The default template is javascript.
+To choose a template, pass the '--template' flag followed by the name of the template you want to use. The default template is javascript.
 
 ## Contributing
 
-Contributions are welcome! If you want to contribute, please follow these steps:
+Contributions are welcome ! If you want to contribute, please follow these steps:
 
   1. Fork the repository
   2. Clone the repository to your local machine
@@ -60,7 +74,7 @@ Contributions are welcome! If you want to contribute, please follow these steps:
   5. Push your changes to your fork
   6. Submit a pull request
 
-Please make sure your code follows the existing coding style and passes the tests before submitting a pull request.
+Please make sure your code follows the existing coding style before submitting a pull request.
 
 ## License
 
