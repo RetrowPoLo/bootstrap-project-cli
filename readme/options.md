@@ -38,4 +38,3 @@ The `--eslint` option initializes ESLint linter in your project directory. ESLin
 ## Install option
 
 The `--install` option automatically installs all the necessary dependencies for your project using the `npm install` command. This saves you time and ensures that all the required packages are installed correctly.
-

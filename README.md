@@ -2,7 +2,7 @@
 
 The Bootstrap Project CLI is a command-line interface tool to help you quickly bootstrap new projects with customizable templates.
 
-### Summary
+## Summary
 
 * [Installation](./#installation)
 * [Usage](./#usage)
@@ -46,17 +46,13 @@ To have a help for each steps (with a real wizard 🧙‍♂️), this will let 
 
 ## Template
 
-The Bootstrap Project CLI provides several project templates to choose from :thumbsup:
+The Bootstrap Project CLI provides several project templates to choose from :
 
 * browser: A template for browser-based projects using vanilla JavaScript and HTML
 * javascript: A template for Node.js projects using JavaScript
 * typescript: A template for Node.js projects using TypeScript
 
 To choose a template, pass the `--template` flag followed by the name of the template you want to use. The default template is javascript.
-
-{% content-ref url="readme/template.md" %}
-[template.md](readme/template.md)
-{% endcontent-ref %}
 
 ## Possible options
 
@@ -68,10 +64,6 @@ You can also pass additional options to customize your project using flags :
 * `--eslint` : Initialize Eslint Javascript linter
 * `--template` : Choose a project template. The default is JavaScript.
 * `--yes` : Skip prompts and use default options
-
-{% content-ref url="readme/options.md" %}
-[options.md](readme/options.md)
-{% endcontent-ref %}
 
 ## Example
 
@@ -89,16 +81,6 @@ bootstrap-project
 
 And you can choose typescript for the template, git and husky in the helping wizard 🧙‍♂️.
 
-## Template
-
-The Bootstrap Project CLI provides several project templates to choose from:
-
-* browser: A template for browser-based projects using vanilla JavaScript and HTML
-* javascript: A template for Node.js projects using JavaScript
-* typescript: A template for Node.js projects using TypeScript
-
-To choose a template, pass the '--template' flag followed by the name of the template you want to use. The default template is javascript.
-
 ## Contributing
 
 Contributions are welcome ! If you want to contribute, please follow these steps:
@@ -115,4 +97,3 @@ Please make sure your code follows the existing coding style before submitting a
 ## License
 
 This project is licensed under the [MIT](https://choosealicense.com/licenses/mit/) License.
-
