@@ -1,8 +1,37 @@
 body {
-	background-color: black;
-	color: cornflowerblue;
+	background-color: #131417;
+	color: #fcfcfc;
 }
 
 h1 {
+	margin-top: 70px;
+	font-size: 50px;
 	text-align: center;
+}
+
+.count-div {
+	text-align: center;
+}
+
+button {
+	outline: none;
+	width: 40px;
+	height: 40px;
+	background-color: #888bb4;
+	border: none;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+#minusButton:active {
+	background-color: #f11318;
+}
+
+#plusButton:active {
+	background-color: #64aa67;
+}
+
+#counterValue {
+	margin: 40px 20px;
+	font-size: 40px;
 }
