@@ -4,12 +4,12 @@ The Bootstrap Project CLI is a command-line interface tool to help you quickly b
 
 ## Summary
 
-* [Installation](./#installation)
-* [Usage](./#usage)
-* [Template](./#template)
-* [Possible options](./#possible-options)
-* [Example](./#example)
-* [Contributing](./#contributing)
+* [Installation](#installation)
+* [Usage](#usage)
+* [Template](#template)
+* [Possible options](#possible-options)
+* [Example](#example)
+* [Contributing](#contributing)
 
 ## Installation
 
