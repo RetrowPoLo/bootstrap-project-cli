@@ -28,6 +28,12 @@ You can install the Bootstrap Project CLI globally using npm:
 npm install -g bootstrap-project-cli
 ```
 
+Or just locally :
+
+```bash
+npm install bootstrap-project-cli
+```
+
 ## Usage
 
 To create a new project, run the following command:

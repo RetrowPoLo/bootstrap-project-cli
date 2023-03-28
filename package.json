@@ -1,7 +1,7 @@
 {
-	"name": "bootstrap-project",
+	"name": "bootstrap-project-cli",
 	"version": "1.0.0",
-	"description": "",
+	"description": "The Bootstrap Project CLI is a command-line interface tool that helps you quickly bootstrap new projects with customizable templates and with options to customize your project.",
 	"main": "dist/cli.js",
 	"type": "module",
 	"bin": {
